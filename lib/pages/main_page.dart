@@ -11,6 +11,10 @@ class MainPage extends ConsumerWidget {
   }
 
   Widget buildUI() {
-    return const Scaffold();
+    return const Scaffold(
+      body: Center(
+        child: Text('This is Main page'),
+      ),
+    );
   }
 }
