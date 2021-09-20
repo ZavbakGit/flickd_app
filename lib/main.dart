@@ -1,18 +1,20 @@
 import 'package:flickd_app/pages/main_page.dart';
 import 'package:flickd_app/pages/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(
     SplashPage(
       key: UniqueKey(),
-      onInitializationComplete: () => runApp(MyApp()),
+      onInitializationComplete: () => runApp(
+        const ProviderScope(child: MyApp()),
+      ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({Key? key}) : super(key: key);
 
   @override

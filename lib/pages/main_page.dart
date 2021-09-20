@@ -11,6 +11,6 @@ class MainPage extends ConsumerWidget {
   }
 
   Widget buildUI() {
-    return Scaffold();
+    return const Scaffold();
   }
 }
