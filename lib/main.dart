@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Flickd',
       initialRoute: 'home',
       routes: {
-        'home': (BuildContext _context) => const MainPage(),
+        'home': (BuildContext _context) =>  MainPage(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
