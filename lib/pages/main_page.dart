@@ -24,7 +24,10 @@ class MainPage extends ConsumerWidget {
         height: _deviceHeight,
         child: Stack(
           alignment: Alignment.center,
-          children: [_backgroundWidget()],
+          children: [
+            _backgroundWidget(),
+            _foregroundWidget(),
+          ],
         ),
       ),
     );
@@ -51,4 +54,44 @@ class MainPage extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _foregroundWidget() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, _deviceHeight! * 0.02, 0, 0),
+      width: _deviceHeight! * 0.88,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _topBarWidget(),
+        ],
+      ),
+    );
+  }
+
+  Widget _topBarWidget() {
+    return Container(
+      height: _deviceHeight! * 0.08,
+      color: Colors.black54,
+      decoration: BoxDecoration(
+          color: Colors.black54, borderRadius: BorderRadius.circular(20.0)),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _searchFieldWidget()
+        ],
+      ),
+    );
+  }
+
+ Widget _searchFieldWidget() {
+    return Container(
+      width: _deviceWidth!*0.50,
+      height: _deviceHeight!*0.05,
+      child: TextField,
+    );
+ }
 }
