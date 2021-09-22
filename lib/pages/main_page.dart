@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flickd_app/models/movie.dart';
 import 'package:flickd_app/models/search_category.dart';
+import 'package:flickd_app/widgets/movie_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -170,8 +171,8 @@ class MainPage extends ConsumerWidget {
         description: 'Изучая английский, мы довольно часто говорим о внешности. Умение грамотно описать человека это очень полезный скилл, который понадобиться не только в разговорном английском, но и на экзаменах или при написании эссе. Поэтому мы подготовили для вас список самых распространенных и популярных прилагательных, которые помогут как можно шире описать себя, друзей, героев последних прочитанных книг или увиденных фильмов.',
         rating: 10.8,
         releaseDate: '2021-07-07',
-        backdropPath: '/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg',
-        posterPath: '/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg'
+        backdropPath: 'bHzz0i6Ue7IixhSjFlGs0slzL2m.jpg',
+        posterPath: 'bHzz0i6Ue7IixhSjFlGs0slzL2m.jpg'
       ));
     }
 
@@ -183,7 +184,14 @@ class MainPage extends ConsumerWidget {
               padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01,horizontal: 0),
               child: GestureDetector(
                 onTap: (){},
-                child: Text(_movies[_count].name!),
+                child: MovieTile(
+                  movie: _movies[_count],
+                  height: _deviceHeight!*0.20,
+                  width: _deviceWidth!*0.85,
+
+
+
+                ),
               ),
             );
           });
