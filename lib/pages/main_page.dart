@@ -26,6 +26,7 @@ class MainPage extends ConsumerWidget {
 
   Widget buildUI() {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Container(
         width: _deviceWidth,
@@ -66,10 +67,10 @@ class MainPage extends ConsumerWidget {
   Widget _foregroundWidget() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, _deviceHeight! * 0.02, 0, 0),
-      width: _deviceHeight! * 0.88,
+      width: _deviceWidth! * 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _topBarWidget(),
@@ -166,7 +167,7 @@ class MainPage extends ConsumerWidget {
     for (var i= 0; i < 20; i++){
       _movies.add(Movie(
         name: 'Mortal $i',
-        language: 'English',
+        language: 'EN',
         isAdult: false,
         description: 'Изучая английский, мы довольно часто говорим о внешности. Умение грамотно описать человека это очень полезный скилл, который понадобиться не только в разговорном английском, но и на экзаменах или при написании эссе. Поэтому мы подготовили для вас список самых распространенных и популярных прилагательных, которые помогут как можно шире описать себя, друзей, героев последних прочитанных книг или увиденных фильмов.',
         rating: 10.8,
