@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flickd_app/models/movie.dart';
+import 'package:flickd_app/models/search_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -70,6 +72,11 @@ class MainPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _topBarWidget(),
+          Container(
+            height: _deviceHeight! * 0.83,
+            padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01),
+            child: _moviesListViewWidget(),
+          ),
         ],
       ),
     );
@@ -86,9 +93,7 @@ class MainPage extends ConsumerWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _searchFieldWidget(),
-        ],
+        children: [_searchFieldWidget(), _categorySelectionWidget()],
       ),
     );
   }
@@ -101,17 +106,93 @@ class MainPage extends ConsumerWidget {
       child: TextField(
         controller: _searchTextFieldController,
         onSubmitted: (_input) {},
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           focusedBorder: _border,
           border: _border,
-          prefixIcon: Icon(Icons.search, color: Colors.white24),
-          hintStyle: TextStyle(color: Colors.white54),
+          prefixIcon: const Icon(Icons.search, color: Colors.white24),
+          hintStyle: const TextStyle(color: Colors.white54),
           filled: false,
           fillColor: Colors.white24,
           hintText: 'Search...',
         ),
       ),
     );
+  }
+
+  Widget _categorySelectionWidget() {
+    return DropdownButton(
+      dropdownColor: Colors.black38,
+      value: SearchCategory.popular,
+      icon: const Icon(
+        Icons.menu,
+        color: Colors.white24,
+      ),
+      underline: Container(
+        height: 1,
+        color: Colors.white24,
+      ),
+      onChanged: (_value) {},
+      items: const [
+        DropdownMenuItem(
+          child: Text(
+            SearchCategory.popular,
+            style: TextStyle(color: Colors.white),
+          ),
+          value: SearchCategory.popular,
+        ),
+        DropdownMenuItem(
+          child: Text(
+            SearchCategory.upcomming,
+            style: TextStyle(color: Colors.white),
+          ),
+          value: SearchCategory.upcomming,
+        ),
+        DropdownMenuItem(
+          child: Text(
+            SearchCategory.none,
+            style: TextStyle(color: Colors.white),
+          ),
+          value: SearchCategory.none,
+        ),
+      ],
+    );
+  }
+
+  Widget _moviesListViewWidget() {
+    final List<Movie>_movies = [];
+
+    for (var i= 0; i < 20; i++){
+      _movies.add(Movie(
+        name: 'Mortal $i',
+        language: 'English',
+        isAdult: false,
+        description: 'Изучая английский, мы довольно часто говорим о внешности. Умение грамотно описать человека это очень полезный скилл, который понадобиться не только в разговорном английском, но и на экзаменах или при написании эссе. Поэтому мы подготовили для вас список самых распространенных и популярных прилагательных, которые помогут как можно шире описать себя, друзей, героев последних прочитанных книг или увиденных фильмов.',
+        rating: 10.8,
+        releaseDate: '2021-07-07',
+        backdropPath: '/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg',
+        posterPath: '/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg'
+      ));
+    }
+
+    if (_movies.isNotEmpty) {
+      return ListView.builder(
+          itemCount: _movies.length,
+          itemBuilder: (BuildContext _context, int _count) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01,horizontal: 0),
+              child: GestureDetector(
+                onTap: (){},
+                child: Text(_movies[_count].name!),
+              ),
+            );
+          });
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      );
+    }
   }
 }
