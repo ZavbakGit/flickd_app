@@ -16,8 +16,10 @@ class MainPageDataController extends StateNotifier<MainPageData> {
     try {
       List<Movie> _movies = [];
       _movies = await _movieService.getPopularMovie(page: state.page!);
+      state = state.copyWith(movies: [..._movies,..._movies],page:state.page! + 1);
     } catch (e) {
 
     }
   }
+}
 

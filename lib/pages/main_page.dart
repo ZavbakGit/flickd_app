@@ -1,16 +1,26 @@
 import 'dart:ui';
 
+import 'package:flickd_app/controllers/main_page_data_controller.dart';
+import 'package:flickd_app/models/main_page_data.dart';
 import 'package:flickd_app/models/movie.dart';
 import 'package:flickd_app/models/search_category.dart';
 import 'package:flickd_app/widgets/movie_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final mainPageDataControllerProvider =
+    StateNotifierProvider<MainPageDataController, MainPageData>((ref) {
+  return MainPageDataController();
+});
+
 class MainPage extends ConsumerWidget {
   MainPage({Key? key}) : super(key: key);
 
   double? _deviceHeight;
   double? _deviceWidth;
+
+  MainPageDataController? _mainPageDataController;
+  MainPageData? _mainPageData;
 
   TextEditingController? _searchTextFieldController;
 
@@ -19,6 +29,8 @@ class MainPage extends ConsumerWidget {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
 
+    _mainPageDataController = watch(mainPageDataControllerProvider.notifier);
+    _mainPageData = watch(mainPageDataControllerProvider);
     _searchTextFieldController = TextEditingController();
 
     return buildUI();
@@ -162,36 +174,34 @@ class MainPage extends ConsumerWidget {
   }
 
   Widget _moviesListViewWidget() {
-    final List<Movie>_movies = [];
+    final List<Movie> _movies = _mainPageData!.movies!;
 
-    for (var i= 0; i < 20; i++){
-      _movies.add(Movie(
-        name: 'Mortal $i',
-        language: 'EN',
-        isAdult: false,
-        description: 'Изучая английский, мы довольно часто говорим о внешности. Умение грамотно описать человека это очень полезный скилл, который понадобиться не только в разговорном английском, но и на экзаменах или при написании эссе. Поэтому мы подготовили для вас список самых распространенных и популярных прилагательных, которые помогут как можно шире описать себя, друзей, героев последних прочитанных книг или увиденных фильмов.',
-        rating: 10.8,
-        releaseDate: '2021-07-07',
-        backdropPath: 'bHzz0i6Ue7IixhSjFlGs0slzL2m.jpg',
-        posterPath: 'bHzz0i6Ue7IixhSjFlGs0slzL2m.jpg'
-      ));
-    }
+    // for (var i = 0; i < 20; i++) {
+    //   _movies.add(Movie(
+    //       name: 'Mortal $i',
+    //       language: 'EN',
+    //       isAdult: false,
+    //       description:
+    //           'Изучая английский, мы довольно часто говорим о внешности. Умение грамотно описать человека это очень полезный скилл, который понадобиться не только в разговорном английском, но и на экзаменах или при написании эссе. Поэтому мы подготовили для вас список самых распространенных и популярных прилагательных, которые помогут как можно шире описать себя, друзей, героев последних прочитанных книг или увиденных фильмов.',
+    //       rating: 10.8,
+    //       releaseDate: '2021-07-07',
+    //       backdropPath: 'bHzz0i6Ue7IixhSjFlGs0slzL2m.jpg',
+    //       posterPath: 'bHzz0i6Ue7IixhSjFlGs0slzL2m.jpg'));
+    // }
 
     if (_movies.isNotEmpty) {
       return ListView.builder(
           itemCount: _movies.length,
           itemBuilder: (BuildContext _context, int _count) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01,horizontal: 0),
+              padding: EdgeInsets.symmetric(
+                  vertical: _deviceHeight! * 0.01, horizontal: 0),
               child: GestureDetector(
-                onTap: (){},
+                onTap: () {},
                 child: MovieTile(
                   movie: _movies[_count],
-                  height: _deviceHeight!*0.20,
-                  width: _deviceWidth!*0.85,
-
-
-
+                  height: _deviceHeight! * 0.20,
+                  width: _deviceWidth! * 0.85,
                 ),
               ),
             );
